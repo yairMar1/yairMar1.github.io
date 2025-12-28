@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yair Margalit | Versatile Computer Science Engineer</title>
+    <meta name="description"
+        content="Spanning the stack from High-Performance System Programming to Scalable Cloud Architectures.">
+
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ===== COLOR VARIABLES SYSTEM ===== */
+        :root {
+            /* Dark Mode Defaults */
+            --bg-color: #050505;
+            --text-main: #f4f4f5;
+            --text-muted: #9ca3af;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --grid-line: rgba(6, 182, 212, 0.05);
+            --dock-bg: rgba(255, 255, 255, 0.05);
+            --dock-border: rgba(255, 255, 255, 0.1);
+            --accent-cyan: #06b6d4;
+            --accent-violet: #8b5cf6;
+        }
+
+        /* Light Mode Overrides - Softer & Calmer */
+        body.light-mode {
+            --bg-color: #e2e8f0;
+
+            --text-main: #1e293b;
+
+            --text-muted: #475569;
+
+            --card-bg: rgba(255, 255, 255, 0.65);
+
+            --card-border: rgba(255, 255, 255, 0.4);
+
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+            --grid-line: rgba(148, 163, 184, 0.15);
+
+            --dock-bg: rgba(255, 255, 255, 0.7);
+            --dock-border: rgba(255, 255, 255, 0.5);
+
+            --accent-cyan: #0891b2;
+            --accent-violet: #7c3aed;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+            /* Smooth Transition for Theme Switch */
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        /* Utility Classes using Variables */
+        .text-main {
+            color: var(--text-main);
+            transition: color 0.5s ease;
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+            transition: color 0.5s ease;
+        }
+
+        .border-theme {
+            border-color: var(--card-border);
+            transition: border-color 0.5s ease;
+        }
+
+        /* Animated Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+            transition: background-image 0.5s ease;
+        }
+
+        @keyframes grid-move {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        /* Glass Morphism - Theme Aware */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1), background 0.5s ease, border 0.5s ease;
+        }
+
+        /* 3D Tilt Card */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        .tilt-card-inner {
+            transform: translateZ(20px);
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch:hover::before,
+        .glitch:hover::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch:hover::before {
+            animation: glitch-1 0.3s infinite;
+            color: var(--accent-cyan);
+            z-index: -1;
+        }
+
+        .glitch:hover::after {
+            animation: glitch-2 0.3s infinite;
+            color: var(--accent-violet);
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+
+            0%,
+            100% {
+                transform: translate(0);
+            }
+
+            33% {
+                transform: translate(-2px, 2px);
+            }
+
+            66% {
+                transform: translate(2px, -2px);
+            }
+        }
+
+        @keyframes glitch-2 {
+
+            0%,
+            100% {
+                transform: translate(0);
+            }
+
+            33% {
+                transform: translate(2px, -2px);
+            }
+
+            66% {
+                transform: translate(-2px, 2px);
+            }
+        }
+
+        /* ===== FLOATING DOCK (Main Bottom) ===== */
+        .floating-dock {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(0);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: var(--dock-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--dock-border);
+            border-radius: 9999px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* מצב מוסתר (כשיורדים לפוטר) */
+        .floating-dock.dock-hidden {
+            transform: translateX(-50%) translateY(100px);
+            /* יורד למטה */
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .dock-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .dock-icon:hover {
+            background: rgba(6, 182, 212, 0.1);
+            transform: scale(1.15) translateY(-5px);
+            color: #10b981;
+        }
+
+        /* ===== GHOST DOCK (Top Left) ===== */
+        .top-dock-left {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--dock-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--dock-border);
+            border-radius: 9999px;
+
+            /* התחלה: מוסתר וקצת למעלה */
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* מצב פעיל (כשיורדים לפוטר) */
+        .top-dock-left.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .top-dock-left a {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .top-dock-left a:hover {
+            color: var(--accent-cyan);
+            transform: scale(1.2);
+        }
+
+        /* Top Header (Socials + Theme Toggle) */
+        .top-header {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--dock-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--dock-border);
+            border-radius: 9999px;
+            transition: transform 0.3s ease;
+        }
+
+        .top-header a,
+        .top-header button {
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .top-header a:hover,
+        .top-header button:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Filter Chips */
+        .filter-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            border: 1px solid var(--card-border);
+            background: var(--card-bg);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--text-main);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+
+        /* HUD Badge */
+        .hud-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--accent-cyan);
+        }
+
+        /* Scroll Reveal */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet), #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== CLEAN & MINIMAL HOVER EFFECT ===== */
+
+        /* המצב הרגיל של הכרטיס */
+        .vault-item {
+            /* מעבר חלק ונעים (Physics-based easing) */
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            border: 1px solid var(--card-border);
+        }
+
+        /* מצב ריחוף (Hover) */
+        .vault-item:hover {
+            /* 1. תזוזה עדינה למעלה (כאילו זה מתקרב) */
+            transform: translateY(-6px);
+
+            /* 2. הדגשת המסגרת בצבע המותג */
+            border-color: var(--accent-cyan);
+
+            /* 3. צל רך שנותן תחושת עומק */
+            box-shadow: 0 15px 30px -10px rgba(6, 182, 212, 0.15);
+
+            /* (אופציונלי) הבהרה קלה של הרקע */
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* הסתרה בסינון (לא לגעת) */
+        .vault-item.hidden {
+            display: none;
+            transform: scale(0.9);
+            opacity: 0;
+        }
+
+        /* Mosaic Grid */
+        .mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        /* Mobile Adjustments (Final & Clean) */
+        @media (max-width: 768px) {
+
+            /* 1. סידור הסקילס ל-2 טורים במובייל */
+            .mosaic-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* 2. ביטול אפקט ההשתגרות במובייל (כי אין מקום למעלה) */
+            /* הדוק התחתון יישאר תמיד גלוי, גם כשה-JS מנסה להסתיר אותו */
+            .floating-dock.dock-hidden {
+                transform: translateX(-50%) translateY(0) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+
+            /* הסתרת הדוק העליון במובייל (למניעת התנגשות עם האייקונים מימין) */
+            .top-dock-left {
+                display: none !important;
+            }
+
+            /* שמירת מרווח בפוטר */
+            footer {
+                padding-bottom: 7rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Grid Background -->
+    <div class="grid-bg"></div>
+
+    <!-- Top Header (Socials + Theme Toggle) -->
+    <div class="top-header glass">
+        <!-- Theme Toggle Button -->
+        <button id="themeToggle" title="Toggle Light/Dark Mode" class="mr-2 border-r border-gray-700 pr-4">
+            <i class="fas fa-sun text-xl" id="themeIcon"></i>
+        </button>
+
+        <a href="https://github.com/yairMar1" target="_blank" title="GitHub"><i class="fab fa-github text-xl"></i></a>
+        <a href="https://www.linkedin.com/in/yair-margalit-089164337/" target="_blank" title="LinkedIn"><i
+                class="fab fa-linkedin text-xl"></i></a>
+        <a href="mailto:yairmargalit.dev@gmail.com" title="Email"><i class="fas fa-envelope text-xl"></i></a>
+    </div>
+
+    <!-- Floating Dock Navigation -->
+    <nav class="floating-dock horizontal" id="mainDock">
+        <a href="#core" class="dock-icon" title="Core"><i class="fas fa-microchip"></i></a>
+        <a href="#skills" class="dock-icon" title="Skills"><i class="fas fa-code"></i></a>
+        <a href="#trust" class="dock-icon" title="Why Me"><i class="fas fa-fingerprint"></i></a>
+        <a href="#projects" class="dock-icon" title="Projects"><i class="fas fa-rocket"></i></a>
+        <a href="#vault" class="dock-icon" title="Vault"><i class="fas fa-database"></i></a>
+    </nav>
+
+    <!-- Ghost Dock (Appears Top-Left when hitting footer) -->
+    <nav class="top-dock-left" id="ghostDock">
+        <a href="#core" title="Core"><i class="fas fa-microchip"></i></a>
+        <a href="#skills" title="Skills"><i class="fas fa-code"></i></a>
+        <a href="#trust" title="Why Me"><i class="fas fa-fingerprint"></i></a>
+        <a href="#projects" title="Projects"><i class="fas fa-rocket"></i></a>
+        <a href="#vault" title="Vault"><i class="fas fa-database"></i></a>
+    </nav>
+
+    <!-- HERO: THE HUMAN ANCHOR -->
+    <section id="core" class="min-h-screen flex items-center justify-center px-6 py-20 relative z-10">
+        <div class="container mx-auto max-w-5xl text-center">
+            <h1 class="text-7xl md:text-9xl font-bold mb-6 glitch text-main" data-text="Yair Margalit">Yair Margalit
+            </h1>
+            <p class="text-2xl md:text-3xl font-semibold mb-8 text-muted">Versatile Computer Science Engineer</p>
+
+            <div class="glass rounded-2xl p-10 mb-12 max-w-3xl mx-auto border-l-4 border-cyan-500">
+                <p class="text-lg md:text-xl text-muted leading-relaxed font-light">
+                    I engineer robust software solutions that work.
+                    Combining a deep understanding of <strong class="text-main">Memory & Algorithms</strong>
+                    with the agility of <strong class="text-main">Full Stack Development</strong>.
+                    Passionate about writing clean, maintainable code and turning complex logic into reliable products.
+                </p>
+            </div>
+
+            <!-- HUD Badges -->
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="hud-badge"><i class="fas fa-smile"></i><span>Positive & Collaborative</span></div>
+                <div class="hud-badge"><i class="fas fa-shield-alt"></i><span>Highly Responsible</span></div>
+                <div class="hud-badge"><i class="fas fa-rocket"></i><span>Quick Learner</span></div>
+                <div class="hud-badge"><i class="fas fa-users"></i><span>Teamwork Driven</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS MOSAIC -->
+    <section id="skills" class="py-24 px-6 relative z-10">
+        <div class="container mx-auto max-w-7xl">
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16 gradient-text scroll-reveal">Skills Mosaic</h2>
+            <div class="mosaic-grid scroll-reveal">
+
+                <!-- 1. Proficient (The Core) -->
+                <div class="glass rounded-2xl p-8 col-span-2 row-span-2 relative overflow-hidden group">
+                    <!-- Watermark Background -->
+                    <div
+                        class="absolute -right-6 -bottom-6 text-9xl text-cyan-500/5 rotate-12 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+                        <i class="fas fa-code"></i>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-6 text-cyan-500 flex items-center gap-3">
+                        <i class="fas fa-laptop-code"></i> Proficient
+                    </h3>
+
+                    <div class="space-y-4 relative z-10">
+                        <div class="flex items-center gap-3 text-main">
+                            <i class="fas fa-check-circle text-cyan-500 text-sm"></i>
+                            <span class="text-xl font-medium">C++</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-main">
+                            <i class="fas fa-check-circle text-cyan-500 text-sm"></i>
+                            <span class="text-xl font-medium">Java</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-main">
+                            <i class="fas fa-check-circle text-cyan-500 text-sm"></i>
+                            <span class="text-xl font-medium">Python</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-main">
+                            <i class="fas fa-check-circle text-cyan-500 text-sm"></i>
+                            <span class="text-xl font-medium">Kotlin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Familiar (Web & Scripts) -->
+                <div class="glass rounded-2xl p-8 col-span-2 relative overflow-hidden group">
+                    <!-- Watermark -->
+                    <div class="absolute -right-6 -bottom-8 text-8xl text-violet-500/5 rotate-12 pointer-events-none">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 text-violet-500 flex items-center gap-3">
+                        <i class="fas fa-cubes"></i> Familiar
+                    </h3>
+
+                    <div class="flex flex-wrap gap-3 relative z-10">
+                        <span
+                            class="px-3 py-1 bg-violet-500/10 text-violet-500 rounded-lg text-sm font-medium border border-violet-500/20">C</span>
+                        <span
+                            class="px-3 py-1 bg-violet-500/10 text-violet-500 rounded-lg text-sm font-medium border border-violet-500/20">JavaScript</span>
+                        <span
+                            class="px-3 py-1 bg-violet-500/10 text-violet-500 rounded-lg text-sm font-medium border border-violet-500/20">React</span>
+                        <span
+                            class="px-3 py-1 bg-violet-500/10 text-violet-500 rounded-lg text-sm font-medium border border-violet-500/20">HTML</span>
+                        <span
+                            class="px-3 py-1 bg-violet-500/10 text-violet-500 rounded-lg text-sm font-medium border border-violet-500/20">CSS</span>
+                        <span
+                            class="px-3 py-1 bg-violet-500/10 text-violet-500 rounded-lg text-sm font-medium border border-violet-500/20">Node.js</span>
+                    </div>
+                </div>
+
+                <!-- 3. Concepts (Deep Tech) -->
+                <div class="glass rounded-2xl p-8 row-span-2 relative overflow-hidden group">
+                    <!-- Watermark -->
+                    <div
+                        class="absolute -right-10 -bottom-10 text-[10rem] text-green-500/5 rotate-12 pointer-events-none">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-5 text-green-500 flex items-center gap-2">
+                        <i class="fas fa-brain"></i> Concepts
+                    </h3>
+
+                    <div class="space-y-3 text-sm text-muted relative z-10 font-medium">
+                        <div class="flex items-center gap-2"><i class="fas fa-angle-right text-green-500/50"></i> OOP
+                        </div>
+                        <div class="flex items-center gap-2"><i class="fas fa-angle-right text-green-500/50"></i> Design
+                            Patterns</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-angle-right text-green-500/50"></i> API
+                            Design</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-angle-right text-green-500/50"></i> AI
+                            Assisted Dev</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-angle-right text-green-500/50"></i>
+                            Networking Protocols</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-angle-right text-green-500/50"></i>
+                            Machine Learning</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-angle-right text-green-500/50"></i> Deep
+                            Learning</div>
+                    </div>
+                </div>
+
+                <!-- 4. Databases -->
+                <div class="glass rounded-2xl p-6 relative overflow-hidden group">
+                    <!-- Watermark -->
+                    <div class="absolute -right-4 -bottom-4 text-7xl text-cyan-500/5 rotate-12 pointer-events-none">
+                        <i class="fas fa-server"></i>
+                    </div>
+
+                    <h3 class="text-lg font-bold mb-3 text-cyan-500 flex items-center gap-2">
+                        <i class="fas fa-database"></i> Databases
+                    </h3>
+                    <div class="space-y-2 text-sm text-muted relative z-10 font-medium">
+                        <div class="flex items-center gap-2"><i class="fas fa-database text-cyan-500/40 text-xs"></i>
+                            SQL (MySQL)</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-fire text-cyan-500/40 text-xs"></i>
+                            Firestore</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-leaf text-cyan-500/40 text-xs"></i>
+                            MongoDB</div>
+                        <div class="flex items-center gap-2"><i
+                                class="fas fa-project-diagram text-cyan-500/40 text-xs"></i> Neo4j</div>
+                    </div>
+                </div>
+
+                <!-- 5. Tools -->
+                <div class="glass rounded-2xl p-6 relative overflow-hidden group">
+                    <!-- Watermark -->
+                    <div class="absolute -right-4 -bottom-4 text-7xl text-violet-500/5 rotate-12 pointer-events-none">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+
+                    <h3 class="text-lg font-bold mb-3 text-violet-500 flex items-center gap-2">
+                        <i class="fas fa-wrench"></i> Tools
+                    </h3>
+                    <div class="space-y-2 text-sm text-muted relative z-10 font-medium">
+                        <div class="flex items-center gap-2"><i class="fab fa-git-alt text-violet-500/40"></i> Git</div>
+                        <div class="flex items-center gap-2"><i class="fab fa-linux text-violet-500/40"></i> Linux</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-cloud text-violet-500/40"></i> Firebase
+                        </div>
+                        <div class="flex items-center gap-2"><i class="fas fa-bug text-violet-500/40"></i> Valgrind
+                        </div>
+                        <div class="flex items-center gap-2"><i class="fas fa-robot text-violet-500/40"></i> GitHub
+                            Copilot</div>
+                    </div>
+                </div>
+
+                <!-- 6. AI Workflow -->
+                <div class="glass rounded-2xl p-6 relative overflow-hidden group">
+                    <!-- Watermark -->
+                    <div class="absolute -right-6 -bottom-6 text-8xl text-pink-500/5 rotate-12 pointer-events-none">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+
+                    <h3 class="text-lg font-bold mb-4 text-pink-500 flex items-center gap-2">
+                        <i class="fas fa-robot"></i> AI Native Workflow
+                    </h3>
+
+                    <!-- IDEs -->
+                    <div class="mb-3 relative z-10">
+                        <p class="text-xs text-muted uppercase tracking-wider mb-2 font-bold opacity-70">IDE &
+                            Integration</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-2 py-1 bg-pink-500/10 text-pink-500 rounded text-xs font-medium border border-pink-500/20">Cursor</span>
+                            <span
+                                class="px-2 py-1 bg-pink-500/10 text-pink-500 rounded text-xs font-medium border border-pink-500/20">VS
+                                Code + Copilot</span>
+                            <span
+                                class="px-2 py-1 bg-pink-500/10 text-pink-500 rounded text-xs font-medium border border-pink-500/20">Antigravity</span>
+                        </div>
+                    </div>
+
+                    <!-- Models -->
+                    <div class="relative z-10">
+                        <p class="text-xs text-muted uppercase tracking-wider mb-2 font-bold opacity-70">Models & Tools
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-2 py-1 bg-violet-500/10 text-violet-500 rounded text-xs font-medium border border-violet-500/20">Claude</span>
+                            <span
+                                class="px-2 py-1 bg-violet-500/10 text-violet-500 rounded text-xs font-medium border border-violet-500/20">ChatGPT</span>
+                            <span
+                                class="px-2 py-1 bg-violet-500/10 text-violet-500 rounded text-xs font-medium border border-violet-500/20">Gemini</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Communication -->
+                <div class="glass rounded-2xl p-6 relative overflow-hidden group">
+                    <!-- Watermark -->
+                    <div class="absolute -right-4 -bottom-4 text-9xl text-amber-500/5 rotate-12 pointer-events-none">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+
+                    <h3 class="text-lg font-bold mb-5 text-amber-500 flex items-center gap-3">
+                        <i class="fas fa-microphone-lines"></i> Communication
+                    </h3>
+
+                    <div class="space-y-4 relative z-10">
+                        <div class="flex items-center justify-between border-b border-gray-500/20 pb-2">
+                            <span class="text-main font-medium tracking-wide">Hebrew</span>
+                            <span
+                                class="px-3 py-1 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-lg text-xs font-bold border border-amber-500/20">NATIVE</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-main font-medium tracking-wide">English</span>
+                            <span
+                                class="px-3 py-1 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-lg text-xs font-bold border border-amber-500/20">PROFICIENT</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST PROTOCOLS -->
+    <section id="trust" class="py-20 px-6 relative z-10">
+        <div class="container mx-auto max-w-4xl scroll-reveal">
+            <div class="glass rounded-3xl p-10 relative overflow-hidden">
+                <div
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-violet-400 to-green-400">
+                </div>
+                <h3 class="text-center text-2xl font-bold mb-8 text-main tracking-wider">WHY TEAMS TRUST MY WORK</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-cyan-500/10 text-cyan-500"><i
+                                class="fas fa-drafting-compass"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1 text-main">Architecture First</h4>
+                            <p class="text-sm text-muted">I design data flows and handle failure scenarios before
+                                writing a single line of code.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-violet-500/10 text-violet-500"><i class="fas fa-wrench"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1 text-main">Maintainability</h4>
+                            <p class="text-sm text-muted">I build software that future teams can understand and
+                                maintain.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-green-500/10 text-green-500"><i class="fas fa-user-check"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1 text-main">Human Centric</h4>
+                            <p class="text-sm text-muted">I build for humans, not just machines. Code is just a means to
+                                solve real world problems.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-pink-500/10 text-pink-500"><i class="fas fa-database"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1 text-main">Data Integrity</h4>
+                            <p class="text-sm text-muted">From pointers in C to NoSQL schemas, I treat data with the
+                                respect it deserves.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIER 1: SPOTLIGHT PROJECTS -->
+    <section id="projects" class="py-24 px-6 relative z-10">
+        <div class="container mx-auto max-w-7xl">
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-20 gradient-text scroll-reveal">Spotlight Projects
+            </h2>
+
+            <!-- MyVet -->
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt>
+                <div class="tilt-card-inner">
+                    <div class="grid md:grid-cols-2 gap-10 items-center">
+                        <div>
+                            <div class="flex items-center gap-4 mb-4"><i
+                                    class="fas fa-mobile-alt text-5xl text-cyan-500"></i>
+                                <h3 class="text-4xl font-bold text-main">MyVet</h3>
+                            </div>
+                            <p class="text-sm text-muted mb-4 uppercase tracking-wider">Android Ecosystem</p>
+                            <p class="text-cyan-500 font-semibold mb-4">The Mission: Bridge the gap between vets and pet
+                                owners with a real-time management ecosystem.</p>
+                            <p class="text-muted leading-relaxed mb-4">Developed the full mobile system including
+                                backend logic, data modeling and client side flows. Implemented a serverless
+                                architecture using Firebase (Firestore, Auth, Storage).</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span
+                                    class="px-3 py-1 bg-cyan-500/10 text-cyan-500 rounded-lg text-sm font-medium">Kotlin</span>
+                                <span
+                                    class="px-3 py-1 bg-cyan-500/10 text-cyan-500 rounded-lg text-sm font-medium">Firebase</span>
+                                <span
+                                    class="px-3 py-1 bg-cyan-500/10 text-cyan-500 rounded-lg text-sm font-medium">NoSQL</span>
+                            </div>
+                            <a href="https://github.com/MyVet-app/MyVet" target="_blank"
+                                class="inline-flex items-center gap-2 text-cyan-500 hover:text-cyan-400 font-semibold transition-colors">View
+                                on GitHub <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="glass rounded-2xl p-12 text-center"><i
+                                class="fas fa-paw text-9xl text-cyan-500 opacity-50"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TodoList -->
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt>
+                <div class="tilt-card-inner">
+                    <div class="grid md:grid-cols-2 gap-10 items-center">
+                        <div class="order-2 md:order-1 glass rounded-2xl p-12 text-center"><i
+                                class="fas fa-tasks text-9xl text-violet-500 opacity-50"></i></div>
+                        <div class="order-1 md:order-2">
+                            <div class="flex items-center gap-4 mb-4"><i
+                                    class="fas fa-code text-5xl text-violet-500"></i>
+                                <h3 class="text-4xl font-bold text-main">TodoList</h3>
+                            </div>
+                            <p class="text-sm text-muted mb-4 uppercase tracking-wider">Modern Web</p>
+                            <p class="text-violet-500 font-semibold mb-4">The Mission: Mastering modern React state
+                                management and local persistence.</p>
+                            <p class="text-muted leading-relaxed mb-4">Built a responsive React & Vite SPA, utilizing
+                                Hooks for efficient state management. Implemented full CRUD functionality with
+                                LocalStorage for persistent data retention.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span
+                                    class="px-3 py-1 bg-violet-500/10 text-violet-500 rounded-lg text-sm font-medium">React</span>
+                                <span
+                                    class="px-3 py-1 bg-violet-500/10 text-violet-500 rounded-lg text-sm font-medium">Vite</span>
+                                <span
+                                    class="px-3 py-1 bg-violet-500/10 text-violet-500 rounded-lg text-sm font-medium">Hooks</span>
+                            </div>
+                            <a href="https://github.com/yairMar1/TodoList.git" target="_blank"
+                                class="inline-flex items-center gap-2 text-violet-500 hover:text-violet-400 font-semibold transition-colors">View
+                                on GitHub <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settlers of Catan -->
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt>
+                <div class="tilt-card-inner">
+                    <div class="grid md:grid-cols-2 gap-10 items-center">
+                        <div>
+                            <div class="flex items-center gap-4 mb-4"><i
+                                    class="fas fa-gamepad text-5xl text-green-500"></i>
+                                <h3 class="text-4xl font-bold text-main">Settlers of Catan</h3>
+                            </div>
+                            <p class="text-sm text-muted mb-4 uppercase tracking-wider">System Engine</p>
+                            <p class="text-green-500 font-semibold mb-4">The Mission: Architecting a complex game engine
+                                with strict OOP rules.</p>
+                            <p class="text-muted leading-relaxed mb-4">Built a modular backend logic engine focusing on
+                                clear rule processing and OOP design. Implemented efficient object oriented modeling of
+                                resources, board components and gameplay logic.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span
+                                    class="px-3 py-1 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium">C++</span>
+                                <span
+                                    class="px-3 py-1 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium">OOP</span>
+                                <span
+                                    class="px-3 py-1 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium">Game
+                                    Logic</span>
+                            </div>
+                            <a href="https://github.com/yairMar1/setllers-of-catan" target="_blank"
+                                class="inline-flex items-center gap-2 text-green-500 hover:text-green-400 font-semibold transition-colors">View
+                                on GitHub <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="glass rounded-2xl p-12 text-center"><i
+                                class="fas fa-dice text-9xl text-green-500 opacity-50"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Viking Chess -->
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt>
+                <div class="tilt-card-inner">
+                    <div class="grid md:grid-cols-2 gap-10 items-center">
+                        <div class="order-2 md:order-1 glass rounded-2xl p-12 text-center"><i
+                                class="fas fa-chess text-9xl text-cyan-500 opacity-50"></i></div>
+                        <div class="order-1 md:order-2">
+                            <div class="flex items-center gap-4 mb-4"><i
+                                    class="fas fa-chess-knight text-5xl text-cyan-500"></i>
+                                <h3 class="text-4xl font-bold text-main">Viking Chess</h3>
+                            </div>
+                            <p class="text-sm text-muted mb-4 uppercase tracking-wider">Clean Architecture</p>
+                            <p class="text-cyan-500 font-semibold mb-4">The Mission: Implementing pure MVC architecture
+                                in a strategy game.</p>
+                            <p class="text-muted leading-relaxed mb-4">Implemented a clean logic architecture using
+                                abstract classes and interfaces. Separated UI from backend logic for maintainability and
+                                scalability.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span
+                                    class="px-3 py-1 bg-cyan-500/10 text-cyan-500 rounded-lg text-sm font-medium">Java</span>
+                                <span
+                                    class="px-3 py-1 bg-cyan-500/10 text-cyan-500 rounded-lg text-sm font-medium">OOP</span>
+                                <span
+                                    class="px-3 py-1 bg-cyan-500/10 text-cyan-500 rounded-lg text-sm font-medium">MVC</span>
+                            </div>
+                            <a href="https://github.com/yairMar1/viking-chess" target="_blank"
+                                class="inline-flex items-center gap-2 text-cyan-500 hover:text-cyan-400 font-semibold transition-colors">View
+                                on GitHub <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE: THE TRAJECTORY -->
+    <section class="py-24 px-6 relative z-10">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16 gradient-text scroll-reveal">The Trajectory</h2>
+            <div class="space-y-6">
+                <!-- Degree -->
+                <div class="glass rounded-2xl p-8 scroll-reveal">
+                    <div class="flex items-start gap-6">
+                        <i class="fas fa-graduation-cap text-4xl text-cyan-500 mt-1"></i>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 text-main">B.Sc. Computer Science</h3>
+                            <p class="text-muted mb-2">Ariel University | 2023–2025</p>
+                            <p class="text-cyan-500 font-medium mb-1">
+                                <i class="fas fa-bolt text-sm mr-1"></i> Accelerated Track (2.5 Years)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Accelerator -->
+                <div class="glass rounded-2xl p-8 scroll-reveal">
+                    <div class="flex items-start gap-6">
+                        <i class="fas fa-lightbulb text-4xl text-yellow-500 mt-1"></i>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 text-main">Entrepreneurship Program Participant</h3>
+                            <p class="text-muted mb-2">Ariel University 2025</p>
+                            <p class="text-muted">Developed a product concept from ideation to customer validation.</p>
+                            <p class="text-muted">Conducted user interviews and worked in a multidisciplinary team.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Army -->
+                <div class="glass rounded-2xl p-8 scroll-reveal">
+                    <div class="flex items-start gap-6">
+                        <i class="fas fa-shield-alt text-4xl text-violet-500 mt-1"></i>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 text-main">Military Commander</h3>
+                            <p class="text-muted mb-2">IDF</p>
+                            <p class="text-muted">Demonstrated strong leadership and mentorship while managing
+                                responsibilities under pressure.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Youth -->
+                <div class="glass rounded-2xl p-8 scroll-reveal">
+                    <div class="flex items-start gap-6">
+                        <i class="fas fa-users text-4xl text-green-500 mt-1"></i>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 text-main">Youth Counselor</h3>
+                            <p class="text-muted">Built communication and mentoring skills through guiding youth groups
+                                and fostering a positive environment.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Quote -->
+                <div class="p-8 text-center scroll-reveal">
+                    <p class="text-xl text-muted font-light italic">
+                        "Leadership, responsibility, and teamwork are not separate from my engineering. <br>
+                        <span class="text-main font-medium">They are the reason my systems are stable.</span>"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIER 2: THE VAULT -->
+    <section id="vault" class="py-32 px-6 relative z-10">
+        <div class="container mx-auto max-w-7xl">
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-4 gradient-text scroll-reveal">The Vault</h2>
+            <div class="text-center max-w-2xl mx-auto mb-10 scroll-reveal">
+                <p
+                    class="text-green-500 font-mono text-sm leading-relaxed bg-green-500/10 p-4 rounded-lg border border-green-500/20">
+                    // SYSTEM_NOTE: This archive is not a list of assignments.<br>
+                    // It is a record of how I think, design, and solve engineering problems.
+                </p>
+            </div>
+
+            <!-- SMART FILTER TAGS -->
+            <div class="flex flex-wrap justify-center gap-3 mb-16 scroll-reveal max-w-4xl mx-auto">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="cpp">C++</button>
+                <button class="filter-btn" data-filter="lang-c">C</button>
+                <button class="filter-btn" data-filter="java">Java</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="web">Web & Mobile</button>
+            </div>
+
+            <div id="vaultGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- === C++ PROJECTS === -->
+                <!-- Settlers of Catan (From Spotlight) -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="cpp systems game">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-green-500/10 text-green-500"><i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">Settlers of Catan</h3>
+                            <p class="text-muted text-sm mb-3">Complex game engine with strict OOP rules and efficient
+                                resource modeling.</p>
+                            <a href="https://github.com/yairMar1/setllers-of-catan" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graph Library -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="cpp algorithms graph">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-green-500/10 text-green-500"><i class="fas fa-sitemap"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">Graph Library</h3>
+                            <p class="text-muted text-sm mb-3">BFS, DFS, Bellman-Ford, and connectivity logic
+                                implementation.</p>
+                            <a href="https://github.com/yairMar1/Graph-Library" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graph Operators -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="cpp operators">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-green-500/10 text-green-500"><i class="fas fa-code"></i></div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">Graph Operators</h3>
+                            <p class="text-muted text-sm mb-3">Advanced operator overloading (+, *, ==) for complex
+                                graph arithmetic.</p>
+                            <a href="https://github.com/yairMar1/Graph-Library-with-Operator-Overloading"
+                                target="_blank" class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View
+                                Code <i class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STL Templates -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="cpp templates stl">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-green-500/10 text-green-500"><i class="fas fa-code-branch"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">STL Templates</h3>
+                            <p class="text-muted text-sm mb-3">Generic Tree container with custom Iterators and SFML
+                                visualization.</p>
+                            <a href="https://github.com/yairMar1/STL-Templates-and-Iterators" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === C PROJECTS === -->
+                <!-- C String List -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="lang-c memory low-level">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-slate-500/10 text-slate-400"><i class="fas fa-memory"></i></div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">String List</h3>
+                            <p class="text-muted text-sm mb-3">Manual memory management (malloc/free) and pointer
+                                manipulation.</p>
+                            <a href="https://github.com/yairMar1/Linked-list" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === JAVA PROJECTS === -->
+                <!-- Viking Chess (From Spotlight) -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="java oop mvc game">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-orange-500/10 text-orange-500"><i
+                                class="fas fa-chess-knight"></i></div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">Viking Chess</h3>
+                            <p class="text-muted text-sm mb-3">Strict MVC architecture implementation in a complex
+                                strategy game.</p>
+                            <a href="https://github.com/yairMar1/viking-chess" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bayesian Network -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="java ai bayesian">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-orange-500/10 text-orange-500"><i class="fas fa-brain"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">Bayesian Network</h3>
+                            <p class="text-muted text-sm mb-3">Probabilistic inference engine using Variable Elimination
+                                algorithm.</p>
+                            <a href="https://github.com/yairMar1/Bayesian-Network" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === PYTHON PROJECTS === -->
+                <!-- AES-128 -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="python crypto security">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-blue-500/10 text-blue-500"><i class="fas fa-lock"></i></div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">AES 128 Encryption (CTR Mode)</h3>
+                            <p class="text-muted text-sm mb-3">Low-level implementation from scratch (NIST standard).
+                                Manual state-matrix logic.</p>
+                            <a href="https://github.com/yairMar1/AES-128-CTR-mode" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Network -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="python patterns architecture">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-blue-500/10 text-blue-500"><i
+                                class="fas fa-project-diagram"></i></div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">Social Network</h3>
+                            <p class="text-muted text-sm mb-3">Architecture showcase using Singleton and Observer design
+                                patterns.</p>
+                            <a href="https://github.com/yairMar1/social-network" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === WEB & MOBILE PROJECTS === -->
+                <!-- MyVet (From Spotlight) -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="web kotlin mobile firebase">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-purple-500/10 text-purple-500"><i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">MyVet</h3>
+                            <p class="text-muted text-sm mb-3">Full Android ecosystem with Firebase backend and NoSQL
+                                modeling.</p>
+                            <a href="https://github.com/MyVet-app/MyVet" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TodoList (From Spotlight) -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="web react js">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-purple-500/10 text-purple-500"><i
+                                class="fas fa-check-square"></i></div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">TodoList</h3>
+                            <p class="text-muted text-sm mb-3">Responsive SPA utilizing Hooks and LocalStorage for
+                                persistence.</p>
+                            <a href="https://github.com/yairMar1/TodoList.git" target="_blank"
+                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                    class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER & CTA -->
+    <footer id="comms" class="py-20 px-6 border-t border-gray-800 relative z-10 overflow-hidden">
+        <!-- Background Glow Effect for Footer -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-cyan-400/5 blur-[140px] w-[420px] h-[240px] rounded-full pointer-events-none">
+        </div>
+
+        <div class="container mx-auto max-w-4xl text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-main">Ready to build something real?</h2>
+            <p class="text-xl text-muted mb-10 font-light max-w-2xl mx-auto">
+                Whether you want to discuss a role, a system, or a real engineering challenge, my inbox is always open.
+            </p>
+
+            <!-- Big CTA Button -->
+            <a href="mailto:yairmargalit.dev@gmail.com"
+                class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-600 to-violet-600 hover:from-cyan-500 hover:to-violet-500 text-white rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25">
+                <i class="fas fa-paper-plane"></i>
+                <span>Start a Conversation</span>
+            </a>
+
+            <!-- Secondary Social Links (Optional redundancy for footer) -->
+            <div class="mt-12 flex justify-center gap-8">
+                <a href="https://github.com/yairMar1" target="_blank"
+                    class="text-muted hover:text-white transition-colors text-3xl"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/yair-margalit-089164337/" target="_blank"
+                    class="text-muted hover:text-cyan-400 transition-colors text-3xl"><i
+                        class="fab fa-linkedin"></i></a>
+            </div>
+
+            <div class="mt-16 border-t border-gray-800/50 pt-8 text-sm text-muted font-mono opacity-60">
+                <p>&copy; 2025 Yair Margalit. Built from scratch.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== THEME TOGGLE LOGIC =====
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        // Check local storage or system preference
+        const currentMode = localStorage.getItem('theme-mode');
+
+        if (currentMode === 'light-mode') {
+            document.body.classList.add('light-mode');
+            document.body.classList.remove('dark-mode');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            document.body.classList.toggle('dark-mode');
+
+            if (document.body.classList.contains('light-mode')) {
+                localStorage.setItem('theme-mode', 'light-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                localStorage.setItem('theme-mode', 'dark-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+
+        // ===== 3D TILT EFFECT =====
+        const tiltCards = document.querySelectorAll('[data-tilt]');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5; // Reduced intensity
+                const rotateY = ((x - centerX) / centerX) * 5;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+
+        // ===== SCROLL REVEAL =====
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== INTELLIGENT DOCK SWAP (TELEPORT) =====
+        const mainDock = document.getElementById('mainDock');
+        const ghostDock = document.getElementById('ghostDock');
+        const footer = document.querySelector('footer');
+
+        const dockObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // הגענו לפוטר: תסתיר את הראשי, תציג את העליון
+                    mainDock.classList.add('dock-hidden');
+                    ghostDock.classList.add('active');
+                } else {
+                    // יצאנו מהפוטר: תחזיר את הראשי, תסתיר את העליון
+                    mainDock.classList.remove('dock-hidden');
+                    ghostDock.classList.remove('active');
+                }
+            });
+        }, {
+            threshold: 0.1, // מפעיל כשרק קצת מהפוטר נכנס
+            rootMargin: "0px 0px 0px 0px"
+        });
+
+        dockObserver.observe(footer);
+
+        // ===== SMART VAULT FILTERING =====
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const vaultItems = document.querySelectorAll('.vault-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+
+                vaultItems.forEach(item => {
+                    const tags = item.getAttribute('data-tags');
+                    if (filter === 'all' || tags.includes(filter)) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = this.getAttribute('href') === '#core' ? 0 : 100;
+                    window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
