@@ -1175,15 +1175,22 @@
                             <h3 class="text-xl font-bold mb-2 text-main">TodoList</h3>
                             <p class="text-muted text-sm mb-3">Responsive SPA utilizing Hooks and LocalStorage for
                                 persistence.</p>
-                            <a href="https://github.com/yairMar1/TodoList.git" target="_blank"
-                                class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
-                                    class="fas fa-arrow-right text-xs"></i></a>
+                            <div class="flex gap-4">
+                                <a href="https://github.com/yairMar1/TodoList.git" target="_blank"
+                                    class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
+                                        class="fas fa-arrow-right text-xs"></i></a>
+                                <!-- New Live Demo Link -->
+                                <a href="https://react-todo-list-tau-fawn.vercel.app" target="_blank"
+                                    class="text-purple-500 hover:text-purple-400 text-sm font-semibold flex items-center gap-1">
+                                    Live Demo <i class="fas fa-external-link-alt text-xs"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- OnMyWay (Ride Management System) -->
-                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="web react js mysql">
+                <!-- <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="web react js mysql">
                     <div class="flex items-start gap-4">
                         <div class="p-3 rounded-full bg-blue-500/10 text-blue-500">
                             <i class="fas fa-van-shuttle"></i>
@@ -1195,6 +1202,33 @@
                             <a href="https://github.com/yairMar1/OnMyWay.git" target="_blank"
                                 class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold">View Code <i
                                     class="fas fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- OnMyWay (Ride Management System) -->
+                <div class="vault-item glass rounded-2xl p-6 scroll-reveal" data-tags="web react js mysql">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 rounded-full bg-blue-500/10 text-blue-500">
+                            <i class="fas fa-van-shuttle"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-main">OnMyWay</h3>
+                            <p class="text-muted text-sm mb-3">Full stack ride management system featuring parent
+                                confirmations, real route visualization with Leaflet, and a Node.js backend.</p>
+
+                            <div class="flex gap-4">
+                                <a href="https://github.com/yairMar1/OnMyWay.git" target="_blank"
+                                    class="text-cyan-500 hover:text-cyan-400 text-sm font-semibold flex items-center gap-1">
+                                    View Code <i class="fas fa-arrow-right text-xs"></i>
+                                </a>
+                                <!-- TODO: cancel the sound of the video -->
+                                <!-- כפתור הוידאו החדש -->
+                                <button onclick="openVideoModal('videos/onmyway-demo.mp4')"
+                                    class="text-blue-400 hover:text-blue-300 text-sm font-semibold flex items-center gap-1 cursor-pointer transition-colors">
+                                    Watch Demo <i class="fas fa-play-circle text-xs"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1274,6 +1308,24 @@
             </div>
         </div>
     </footer>
+
+    <!-- Video Modal Overlay -->
+    <div id="videoModal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeVideoModal()"></div>
+        <div class="relative z-10 flex items-center justify-center min-h-screen p-4">
+            <div
+                class="bg-gray-900 rounded-2xl border border-white/10 shadow-2xl w-full max-w-4xl overflow-hidden relative">
+                <button onclick="closeVideoModal()"
+                    class="absolute top-4 right-4 text-white/70 hover:text-white z-20 bg-black/50 hover:bg-black/70 rounded-full p-2 w-10 h-10 flex items-center justify-center transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+                <video id="modalVideoPlayer" class="w-full h-auto max-h-[80vh] bg-black" controls>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ===== THEME TOGGLE LOGIC =====
@@ -1389,6 +1441,33 @@
                     window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
                 }
             });
+        });
+
+        function openVideoModal(videoPath) {
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('modalVideoPlayer');
+            if (!modal || !videoPlayer) return;
+
+            videoPlayer.src = videoPath;
+            modal.classList.remove('hidden');
+            // אופציונלי: התחלה אוטומטית
+            // videoPlayer.play();
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('modalVideoPlayer');
+            if (!modal || !videoPlayer) return;
+
+            modal.classList.add('hidden');
+            videoPlayer.pause();
+            videoPlayer.currentTime = 0;
+            videoPlayer.src = ""; // ניקוי המקור
+        }
+
+        // סגירה עם מקש ESC
+        document.addEventListener('keydown', function (event) {
+            if (event.key === "Escape") closeVideoModal();
         });
     </script>
 </body>
