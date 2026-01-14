@@ -435,30 +435,69 @@
             gap: 1rem;
         }
 
-        /* Mobile Adjustments (Final & Clean) */
+        /* ========================================= */
+        /*      MOBILE RESPONSIVENESS (UNIFIED)      */
+        /* ========================================= */
         @media (max-width: 768px) {
 
-            /* 1. סידור הסקילס ל-2 טורים במובייל */
-            .mosaic-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            /* 2. ביטול אפקט ההשתגרות במובייל (כי אין מקום למעלה) */
-            /* הדוק התחתון יישאר תמיד גלוי, גם כשה-JS מנסה להסתיר אותו */
+            /* ביטול אפקט ההשתגרות במובייל */
             .floating-dock.dock-hidden {
                 transform: translateX(-50%) translateY(0) !important;
                 opacity: 1 !important;
                 pointer-events: auto !important;
             }
 
-            /* הסתרת הדוק העליון במובייל (למניעת התנגשות עם האייקונים מימין) */
+            /* הסתרת הדוק העליון במובייל */
             .top-dock-left {
                 display: none !important;
             }
 
             /* שמירת מרווח בפוטר */
             footer {
-                padding-bottom: 7rem !important;
+                padding-bottom: 8rem !important;
+            }
+
+            /* הקטנת כותרות ענקיות שלא יחרגו מהמסך */
+            h1.text-7xl {
+                font-size: 3rem !important;
+                /* קטן יותר */
+                line-height: 1.1;
+            }
+
+            .text-5xl {
+                font-size: 2.25rem !important;
+            }
+
+            /* סידור הסקילס: עדיף טור אחד במובייל כדי שהטקסט לא יימעך */
+            .mosaic-grid {
+                display: grid;
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+
+            /* איפוס המתיחות של הקוביות הגדולות */
+            .glass.col-span-2,
+            .glass.row-span-2 {
+                grid-column: auto !important;
+                grid-row: auto !important;
+            }
+
+            /* סידור הפרויקטים (Spotlight): תמיד תמונה למעלה, טקסט למטה */
+            .tilt-card-inner .grid {
+                display: flex !important;
+                flex-direction: column-reverse !important;
+                gap: 1.5rem !important;
+            }
+
+            /* ריווחים כלליים */
+            section {
+                padding-top: 4rem !important;
+                padding-bottom: 4rem !important;
+            }
+
+            /* Vault Grid - טור אחד לכרטיסים הקטנים */
+            #vaultGrid {
+                grid-template-columns: 1fr !important;
             }
         }
     </style>
@@ -1340,7 +1379,7 @@
             </div>
 
             <div class="mt-16 border-t border-gray-800/50 pt-8 text-sm text-muted font-mono opacity-60">
-                <p>&copy; 2025 Yair Margalit. Built from scratch.</p>
+                <p>&copy; 2026 Yair Margalit. Built from scratch.</p>
             </div>
         </div>
     </footer>
