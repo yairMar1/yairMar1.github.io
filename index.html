@@ -142,6 +142,8 @@
 
         /* Glass Morphism - Theme Aware */
         .glass {
+            position: relative;
+            overflow: hidden;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -259,14 +261,14 @@
             justify-content: center;
             font-size: 1.5rem;
             color: var(--accent-cyan);
-            transition: all 0.3s ease;
+            transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1), color 0.3s ease, background 0.3s ease;
             cursor: pointer;
             border-radius: 50%;
+            will-change: transform;
         }
 
         .dock-icon:hover {
             background: rgba(6, 182, 212, 0.1);
-            transform: scale(1.15) translateY(-5px);
             color: #10b981;
         }
 
@@ -395,6 +397,241 @@
             background-clip: text;
         }
 
+        /* ===== FLOATING GRADIENT ORBS ===== */
+        .hero-orbs {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            will-change: transform;
+            animation: orb-float 20s ease-in-out infinite;
+        }
+
+        .hero-orb--cyan {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.6), transparent 70%);
+            top: 10%;
+            left: 15%;
+            animation-duration: 18s;
+        }
+
+        .hero-orb--violet {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.5), transparent 70%);
+            top: 50%;
+            right: 10%;
+            animation-duration: 22s;
+            animation-delay: -5s;
+        }
+
+        .hero-orb--green {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.4), transparent 70%);
+            bottom: 10%;
+            left: 40%;
+            animation-duration: 25s;
+            animation-delay: -10s;
+        }
+
+        @keyframes orb-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(60px, -40px) scale(1.1); }
+            50% { transform: translate(-30px, 50px) scale(0.95); }
+            75% { transform: translate(40px, 20px) scale(1.05); }
+        }
+
+        body.light-mode .hero-orb { opacity: 0.2; }
+
+        /* ===== CURSOR GLOW ===== */
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.07), transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            will-change: left, top;
+        }
+
+        body.light-mode .cursor-glow {
+            background: radial-gradient(circle, rgba(8, 145, 178, 0.04), transparent 70%);
+        }
+
+        @media (max-width: 768px) {
+            .cursor-glow { display: none; }
+        }
+
+        /* ===== CARD LIGHT SWEEP + GLOW ===== */
+        .glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.03),
+                rgba(255, 255, 255, 0.06),
+                rgba(255, 255, 255, 0.03),
+                transparent
+            );
+            transform: skewX(-15deg);
+            transition: none;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .glass:hover::before {
+            animation: light-sweep 0.8s ease-out forwards;
+        }
+
+        @keyframes light-sweep {
+            0% { left: -100%; }
+            100% { left: 150%; }
+        }
+
+        .glass:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: var(--card-shadow),
+                        0 0 20px rgba(6, 182, 212, 0.1),
+                        inset 0 0 20px rgba(6, 182, 212, 0.03);
+        }
+
+        body.light-mode .glass:hover {
+            border-color: rgba(8, 145, 178, 0.25);
+            box-shadow: var(--card-shadow),
+                        0 0 15px rgba(8, 145, 178, 0.08);
+        }
+
+        body.light-mode .glass::before {
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+        }
+
+        /* ===== HERO GRADIENT ANIMATION ===== */
+        .gradient-shift {
+            background: linear-gradient(270deg,
+                var(--accent-cyan),
+                var(--accent-violet),
+                #10b981,
+                var(--accent-cyan));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-cycle 8s ease-in-out infinite;
+        }
+
+        @keyframes gradient-cycle {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ===== TYPEWRITER EFFECT ===== */
+        .typewriter-wrapper {
+            display: inline-block;
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 2.5s steps(40, end) 0.5s forwards;
+            display: block;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* hide-caret kept for reference but unused */
+        @keyframes hide-caret {
+            to { border-color: transparent; }
+        }
+
+        /* ===== STAGGERED SCROLL REVEALS ===== */
+        .scroll-reveal[data-reveal="left"] { transform: translateX(-60px); }
+        .scroll-reveal[data-reveal="right"] { transform: translateX(60px); }
+        .scroll-reveal[data-reveal="scale"] { transform: scale(0.9); }
+
+        .scroll-reveal.revealed {
+            transform: translateY(0) translateX(0) scale(1) !important;
+        }
+
+        .vault-item.scroll-reveal:nth-child(1) { transition-delay: 0ms; }
+        .vault-item.scroll-reveal:nth-child(2) { transition-delay: 80ms; }
+        .vault-item.scroll-reveal:nth-child(3) { transition-delay: 160ms; }
+        .vault-item.scroll-reveal:nth-child(4) { transition-delay: 240ms; }
+        .vault-item.scroll-reveal:nth-child(5) { transition-delay: 320ms; }
+        .vault-item.scroll-reveal:nth-child(6) { transition-delay: 400ms; }
+        .vault-item.scroll-reveal:nth-child(7) { transition-delay: 80ms; }
+        .vault-item.scroll-reveal:nth-child(8) { transition-delay: 160ms; }
+        .vault-item.scroll-reveal:nth-child(9) { transition-delay: 240ms; }
+        .vault-item.scroll-reveal:nth-child(10) { transition-delay: 320ms; }
+        .vault-item.scroll-reveal:nth-child(11) { transition-delay: 400ms; }
+        .vault-item.scroll-reveal:nth-child(12) { transition-delay: 80ms; }
+        .vault-item.scroll-reveal:nth-child(13) { transition-delay: 160ms; }
+        .vault-item.scroll-reveal:nth-child(14) { transition-delay: 240ms; }
+
+        /* ===== ANIMATED SECTION DIVIDERS ===== */
+        .section-divider {
+            width: 100%;
+            max-width: 200px;
+            height: 2px;
+            margin: 0 auto;
+            background: linear-gradient(90deg,
+                transparent,
+                var(--accent-cyan),
+                var(--accent-violet),
+                #10b981,
+                transparent);
+            background-size: 200% 100%;
+            animation: divider-shift 4s ease-in-out infinite;
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        @keyframes divider-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ===== MOBILE: TYPEWRITER FALLBACK ===== */
+        @media (max-width: 768px) {
+            .typewriter {
+                width: 100%;
+                white-space: normal;
+                border-right: none;
+                animation: fadeInOnly 1s ease forwards;
+            }
+            @keyframes fadeInOnly {
+                from { opacity: 0; } to { opacity: 1; }
+            }
+        }
+
         /* ===== CLEAN & MINIMAL HOVER EFFECT ===== */
 
         /* המצב הרגיל של הכרטיס */
@@ -512,6 +749,9 @@
     <!-- Animated Grid Background -->
     <div class="grid-bg"></div>
 
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
     <!-- Top Header (Socials + Theme Toggle) -->
     <div class="top-header glass">
         <!-- Theme Toggle Button -->
@@ -545,10 +785,19 @@
 
     <!-- HERO: THE HUMAN ANCHOR -->
     <section id="core" class="min-h-screen flex items-center justify-center px-6 py-20 relative z-10">
+        <!-- Floating Gradient Orbs -->
+        <div class="hero-orbs">
+            <div class="hero-orb hero-orb--cyan"></div>
+            <div class="hero-orb hero-orb--violet"></div>
+            <div class="hero-orb hero-orb--green"></div>
+        </div>
+
         <div class="container mx-auto max-w-5xl text-center">
-            <h1 class="text-7xl md:text-9xl font-bold mb-6 glitch text-main" data-text="Yair Margalit">Yair Margalit
+            <h1 class="text-7xl md:text-9xl font-bold mb-6 glitch gradient-shift" data-text="Yair Margalit">Yair Margalit
             </h1>
-            <p class="text-2xl md:text-3xl font-semibold mb-8 text-muted">CS Graduate · Aspiring Software Developer</p>
+            <p class="text-2xl md:text-3xl font-semibold mb-8 text-muted">
+                <span class="typewriter-wrapper"><span class="typewriter">CS Graduate &middot; Aspiring Software Developer</span></span>
+            </p>
 
             <div class="glass rounded-2xl p-10 mb-12 max-w-3xl mx-auto border-l-4 border-cyan-500">
                 <p class="text-lg md:text-xl text-muted leading-relaxed font-light">
@@ -575,6 +824,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider relative z-10"></div>
 
     <!-- SKILLS MOSAIC -->
     <section id="skills" class="py-24 px-6 relative z-10">
@@ -785,9 +1036,11 @@
         </div>
     </section>
 
+    <div class="section-divider relative z-10"></div>
+
     <!-- TRUST PROTOCOLS -->
     <section id="trust" class="py-20 px-6 relative z-10">
-        <div class="container mx-auto max-w-4xl scroll-reveal">
+        <div class="container mx-auto max-w-4xl scroll-reveal" data-reveal="scale">
             <div class="glass rounded-3xl p-10 relative overflow-hidden">
                 <div
                     class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-violet-400 to-green-400">
@@ -834,6 +1087,8 @@
         </div>
     </section>
 
+    <div class="section-divider relative z-10"></div>
+
     <!-- TIER 1: SPOTLIGHT PROJECTS -->
     <section id="projects" class="py-24 px-6 relative z-10">
         <div class="container mx-auto max-w-7xl">
@@ -841,7 +1096,7 @@
             </h2>
 
             <!-- MyVet -->
-            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt>
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="left">
                 <div class="tilt-card-inner">
                     <div class="grid md:grid-cols-2 gap-10 items-center">
                         <div>
@@ -874,7 +1129,7 @@
             </div>
 
             <!-- AWS EC2 CPU Monitor -->
-            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt>
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="right">
                 <div class="tilt-card-inner">
                     <div class="grid md:grid-cols-2 gap-10 items-center">
                         <div class="order-2 md:order-1 glass rounded-2xl p-12 text-center"><i
@@ -910,7 +1165,7 @@
             </div>
 
             <!-- Settlers of Catan -->
-            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt>
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="left">
                 <div class="tilt-card-inner">
                     <div class="grid md:grid-cols-2 gap-10 items-center">
                         <div>
@@ -944,7 +1199,7 @@
             </div>
 
             <!-- OnMyWay -->
-            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt>
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="right">
                 <div class="tilt-card-inner">
                     <div class="grid md:grid-cols-2 gap-10 items-center">
                         <div class="order-2 md:order-1 glass rounded-2xl p-12 text-center"><i
@@ -980,6 +1235,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider relative z-10"></div>
 
     <!-- TIMELINE: THE TRAJECTORY -->
     <section class="py-24 px-6 relative z-10">
@@ -1066,6 +1323,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider relative z-10"></div>
 
     <!-- TIER 2: THE VAULT -->
     <section id="vault" class="py-32 px-6 relative z-10">
@@ -1559,6 +1818,53 @@
         // סגירה עם מקש ESC
         document.addEventListener('keydown', function (event) {
             if (event.key === "Escape") closeVideoModal();
+        });
+
+        // ===== CURSOR GLOW =====
+        const cursorGlow = document.getElementById('cursorGlow');
+        if (cursorGlow && window.innerWidth > 768) {
+            let glowX = 0, glowY = 0, currentX = 0, currentY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                glowX = e.clientX;
+                glowY = e.clientY;
+            });
+
+            function animateGlow() {
+                currentX += (glowX - currentX) * 0.1;
+                currentY += (glowY - currentY) * 0.1;
+                cursorGlow.style.left = currentX + 'px';
+                cursorGlow.style.top = currentY + 'px';
+                requestAnimationFrame(animateGlow);
+            }
+            animateGlow();
+        }
+
+        // ===== MAGNETIC DOCK =====
+        const dock = document.getElementById('mainDock');
+        const dockIcons = dock.querySelectorAll('.dock-icon');
+
+        dock.addEventListener('mousemove', (e) => {
+            dockIcons.forEach(icon => {
+                const rect = icon.getBoundingClientRect();
+                const iconCenterX = rect.left + rect.width / 2;
+                const distance = Math.abs(e.clientX - iconCenterX);
+                const maxDistance = 120;
+
+                if (distance < maxDistance) {
+                    const scale = 1 + 0.35 * (1 - distance / maxDistance);
+                    const translateY = -8 * (1 - distance / maxDistance);
+                    icon.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                } else {
+                    icon.style.transform = 'scale(1) translateY(0)';
+                }
+            });
+        });
+
+        dock.addEventListener('mouseleave', () => {
+            dockIcons.forEach(icon => {
+                icon.style.transform = 'scale(1) translateY(0)';
+            });
         });
     </script>
 </body>
