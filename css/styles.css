@@ -1,40 +1,34 @@
 /* ===== COLOR VARIABLES SYSTEM ===== */
 :root {
-    /* Dark Mode Defaults */
-    --bg-color: #050505;
-    --text-main: #f4f4f5;
-    --text-muted: #9ca3af;
-    --card-bg: rgba(255, 255, 255, 0.03);
-    --card-border: rgba(255, 255, 255, 0.05);
-    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    --grid-line: rgba(6, 182, 212, 0.05);
-    --dock-bg: rgba(255, 255, 255, 0.05);
-    --dock-border: rgba(255, 255, 255, 0.1);
-    --accent-cyan: #06b6d4;
-    --accent-violet: #8b5cf6;
+    /* Dark Mode - "Rich Wine" */
+    --bg-color: #110c0e;
+    --text-main: #f5f0f1;
+    --text-muted: #a89a9e;
+    --card-bg: rgba(180, 130, 140, 0.05);
+    --card-border: rgba(180, 130, 140, 0.08);
+    --card-shadow: 0 8px 32px rgba(40, 10, 20, 0.5);
+    --grid-line: rgba(180, 60, 70, 0.04);
+    --dock-bg: rgba(180, 130, 140, 0.06);
+    --dock-border: rgba(180, 130, 140, 0.12);
+    --accent-cyan: #c24058;
+    --accent-violet: #d4956a;
+    --accent-tertiary: #e8a87c;
 }
 
-/* Light Mode Overrides - Softer & Calmer */
+/* Light Mode - "Crimson Cream" */
 body.light-mode {
-    --bg-color: #e2e8f0;
-
-    --text-main: #1e293b;
-
-    --text-muted: #475569;
-
-    --card-bg: rgba(255, 255, 255, 0.65);
-
-    --card-border: rgba(255, 255, 255, 0.4);
-
-    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-
-    --grid-line: rgba(148, 163, 184, 0.15);
-
-    --dock-bg: rgba(255, 255, 255, 0.7);
-    --dock-border: rgba(255, 255, 255, 0.5);
-
-    --accent-cyan: #0891b2;
-    --accent-violet: #7c3aed;
+    --bg-color: #faf5f3;
+    --text-main: #2d1f24;
+    --text-muted: #6b5359;
+    --card-bg: rgba(255, 255, 255, 0.75);
+    --card-border: rgba(200, 160, 160, 0.3);
+    --card-shadow: 0 4px 20px rgba(120, 40, 50, 0.06);
+    --grid-line: rgba(180, 80, 90, 0.06);
+    --dock-bg: rgba(255, 252, 250, 0.8);
+    --dock-border: rgba(200, 160, 160, 0.25);
+    --accent-cyan: #a83248;
+    --accent-violet: #c07a50;
+    --accent-tertiary: #d4956a;
 }
 
 * {
@@ -44,7 +38,7 @@ body.light-mode {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-main);
     overflow-x: hidden;
@@ -60,7 +54,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Sora', sans-serif;
     letter-spacing: -0.02em;
 }
 
@@ -212,10 +206,8 @@ h6 {
     pointer-events: auto;
 }
 
-/* מצב מוסתר (כשיורדים לפוטר) */
 .floating-dock.dock-hidden {
     transform: translateX(-50%) translateY(100px);
-    /* יורד למטה */
     opacity: 0;
     pointer-events: none;
 }
@@ -235,8 +227,8 @@ h6 {
 }
 
 .dock-icon:hover {
-    background: rgba(6, 182, 212, 0.1);
-    color: #10b981;
+    background: rgba(194, 64, 88, 0.12);
+    color: var(--accent-violet);
 }
 
 /* ===== GHOST DOCK (Top Left) ===== */
@@ -253,14 +245,12 @@ h6 {
     border: 1px solid var(--dock-border);
     border-radius: 9999px;
 
-    /* התחלה: מוסתר וקצת למעלה */
     opacity: 0;
     transform: translateY(-20px);
     pointer-events: none;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* מצב פעיל (כשיורדים לפוטר) */
 .top-dock-left.active {
     opacity: 1;
     transform: translateY(0);
@@ -327,7 +317,7 @@ h6 {
     background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
     border-color: transparent;
     color: white;
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 15px rgba(194, 64, 88, 0.4);
 }
 
 /* HUD Badge */
@@ -336,8 +326,8 @@ h6 {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: rgba(6, 182, 212, 0.1);
-    border: 1px solid rgba(6, 182, 212, 0.3);
+    background: rgba(194, 64, 88, 0.1);
+    border: 1px solid rgba(194, 64, 88, 0.3);
     border-radius: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -358,7 +348,7 @@ h6 {
 
 /* Gradient Text */
 .gradient-text {
-    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet), #10b981);
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet), var(--accent-tertiary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -385,7 +375,7 @@ h6 {
 .hero-orb--cyan {
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(6, 182, 212, 0.6), transparent 70%);
+    background: radial-gradient(circle, rgba(194, 64, 88, 0.6), transparent 70%);
     top: 10%;
     left: 15%;
     animation-duration: 18s;
@@ -394,7 +384,7 @@ h6 {
 .hero-orb--violet {
     width: 350px;
     height: 350px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.5), transparent 70%);
+    background: radial-gradient(circle, rgba(212, 149, 106, 0.5), transparent 70%);
     top: 50%;
     right: 10%;
     animation-duration: 22s;
@@ -404,7 +394,7 @@ h6 {
 .hero-orb--green {
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.4), transparent 70%);
+    background: radial-gradient(circle, rgba(232, 168, 124, 0.4), transparent 70%);
     bottom: 10%;
     left: 40%;
     animation-duration: 25s;
@@ -420,13 +410,97 @@ h6 {
 
 body.light-mode .hero-orb { opacity: 0.2; }
 
+/* ===== HERO CHARACTER EMOTICONS ===== */
+.hero-character {
+    position: absolute;
+    opacity: 0.18;
+    will-change: transform;
+    animation: orb-float 20s ease-in-out infinite;
+    filter: drop-shadow(0 4px 20px rgba(194, 64, 88, 0.15));
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.hero-character--1 {
+    width: 180px;
+    top: 8%;
+    left: 8%;
+    animation-duration: 18s;
+    opacity: 0.16;
+}
+
+.hero-character--2 {
+    width: 150px;
+    top: 55%;
+    right: 6%;
+    animation-duration: 22s;
+    animation-delay: -5s;
+    opacity: 0.13;
+}
+
+.hero-character--3 {
+    width: 130px;
+    bottom: 8%;
+    left: 35%;
+    animation-duration: 25s;
+    animation-delay: -10s;
+    opacity: 0.11;
+}
+
+body.light-mode .hero-character {
+    opacity: 0.12;
+    filter: drop-shadow(0 4px 20px rgba(168, 50, 72, 0.1));
+}
+
+body.light-mode .hero-character--1 { opacity: 0.1; }
+body.light-mode .hero-character--2 { opacity: 0.08; }
+body.light-mode .hero-character--3 { opacity: 0.07; }
+
+/* ===== SECTION EMOTICONS ===== */
+.section-emoticon {
+    display: inline-block;
+    width: 72px;
+    height: auto;
+    vertical-align: middle;
+    margin-left: 12px;
+    animation: emoticon-bob 3s ease-in-out infinite;
+    filter: drop-shadow(0 2px 8px rgba(194, 64, 88, 0.2));
+    border-radius: 12px;
+}
+
+@keyframes emoticon-bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(2deg); }
+}
+
+/* Project card hover emoticons */
+.project-emoticon {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 70px;
+    height: auto;
+    opacity: 0;
+    transform: scale(0.5) rotate(-15deg);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+    z-index: 10;
+    filter: drop-shadow(0 4px 12px rgba(194, 64, 88, 0.25));
+    border-radius: 10px;
+}
+
+.tilt-card:hover .project-emoticon {
+    opacity: 0.85;
+    transform: scale(1) rotate(0deg);
+}
+
 /* ===== CURSOR GLOW ===== */
 .cursor-glow {
     position: fixed;
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(6, 182, 212, 0.07), transparent 70%);
+    background: radial-gradient(circle, rgba(194, 64, 88, 0.07), transparent 70%);
     pointer-events: none;
     z-index: 1;
     transform: translate(-50%, -50%);
@@ -435,7 +509,7 @@ body.light-mode .hero-orb { opacity: 0.2; }
 }
 
 body.light-mode .cursor-glow {
-    background: radial-gradient(circle, rgba(8, 145, 178, 0.04), transparent 70%);
+    background: radial-gradient(circle, rgba(168, 50, 72, 0.04), transparent 70%);
 }
 
 @media (max-width: 768px) {
@@ -474,16 +548,16 @@ body.light-mode .cursor-glow {
 }
 
 .glass:hover {
-    border-color: rgba(6, 182, 212, 0.3);
+    border-color: rgba(194, 64, 88, 0.3);
     box-shadow: var(--card-shadow),
-                0 0 20px rgba(6, 182, 212, 0.1),
-                inset 0 0 20px rgba(6, 182, 212, 0.03);
+                0 0 20px rgba(194, 64, 88, 0.1),
+                inset 0 0 20px rgba(194, 64, 88, 0.03);
 }
 
 body.light-mode .glass:hover {
-    border-color: rgba(8, 145, 178, 0.25);
+    border-color: rgba(168, 50, 72, 0.25);
     box-shadow: var(--card-shadow),
-                0 0 15px rgba(8, 145, 178, 0.08);
+                0 0 15px rgba(168, 50, 72, 0.08);
 }
 
 body.light-mode .glass::before {
@@ -502,7 +576,7 @@ body.light-mode .glass::before {
     background: linear-gradient(270deg,
         var(--accent-cyan),
         var(--accent-violet),
-        #10b981,
+        var(--accent-tertiary),
         var(--accent-cyan));
     background-size: 300% 300%;
     -webkit-background-clip: text;
@@ -573,7 +647,7 @@ body.light-mode .glass::before {
         transparent,
         var(--accent-cyan),
         var(--accent-violet),
-        #10b981,
+        var(--accent-tertiary),
         transparent);
     background-size: 200% 100%;
     animation: divider-shift 4s ease-in-out infinite;
@@ -600,32 +674,20 @@ body.light-mode .glass::before {
 }
 
 /* ===== CLEAN & MINIMAL HOVER EFFECT ===== */
-
-/* המצב הרגיל של הכרטיס */
 .vault-item {
-    /* מעבר חלק ונעים (Physics-based easing) */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: translateY(0) scale(1);
     opacity: 1;
     border: 1px solid var(--card-border);
 }
 
-/* מצב ריחוף (Hover) */
 .vault-item:hover {
-    /* 1. תזוזה עדינה למעלה (כאילו זה מתקרב) */
     transform: translateY(-6px);
-
-    /* 2. הדגשת המסגרת בצבע המותג */
     border-color: var(--accent-cyan);
-
-    /* 3. צל רך שנותן תחושת עומק */
-    box-shadow: 0 15px 30px -10px rgba(6, 182, 212, 0.15);
-
-    /* (אופציונלי) הבהרה קלה של הרקע */
+    box-shadow: 0 15px 30px -10px rgba(194, 64, 88, 0.15);
     background: rgba(255, 255, 255, 0.06);
 }
 
-/* הסתרה בסינון (לא לגעת) */
 .vault-item.hidden {
     display: none;
     transform: scale(0.9);
@@ -653,20 +715,20 @@ body.light-mode .glass::before {
     border-radius: 50%;
     object-fit: cover;
     object-position: center 15%;
-    border: 3px solid rgba(6, 182, 212, 0.4);
+    border: 3px solid rgba(194, 64, 88, 0.4);
     box-shadow:
-        0 0 20px rgba(6, 182, 212, 0.15),
-        0 0 60px rgba(6, 182, 212, 0.08),
+        0 0 20px rgba(194, 64, 88, 0.15),
+        0 0 60px rgba(194, 64, 88, 0.08),
         0 8px 32px rgba(0, 0, 0, 0.3);
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     animation: profile-glow 4s ease-in-out infinite alternate;
 }
 
 .hero-profile-img:hover {
-    border-color: rgba(6, 182, 212, 0.7);
+    border-color: rgba(194, 64, 88, 0.7);
     box-shadow:
-        0 0 30px rgba(6, 182, 212, 0.25),
-        0 0 80px rgba(6, 182, 212, 0.12),
+        0 0 30px rgba(194, 64, 88, 0.25),
+        0 0 80px rgba(194, 64, 88, 0.12),
         0 8px 32px rgba(0, 0, 0, 0.4);
     transform: scale(1.03);
 }
@@ -674,23 +736,23 @@ body.light-mode .glass::before {
 @keyframes profile-glow {
     0% {
         box-shadow:
-            0 0 20px rgba(6, 182, 212, 0.15),
-            0 0 60px rgba(6, 182, 212, 0.08),
+            0 0 20px rgba(194, 64, 88, 0.15),
+            0 0 60px rgba(194, 64, 88, 0.08),
             0 8px 32px rgba(0, 0, 0, 0.3);
     }
     100% {
         box-shadow:
-            0 0 25px rgba(139, 92, 246, 0.15),
-            0 0 60px rgba(139, 92, 246, 0.08),
+            0 0 25px rgba(212, 149, 106, 0.15),
+            0 0 60px rgba(212, 149, 106, 0.08),
             0 8px 32px rgba(0, 0, 0, 0.3);
     }
 }
 
 body.light-mode .hero-profile-img {
-    border-color: rgba(8, 145, 178, 0.5);
+    border-color: rgba(168, 50, 72, 0.5);
     box-shadow:
-        0 0 20px rgba(8, 145, 178, 0.1),
-        0 0 60px rgba(8, 145, 178, 0.05),
+        0 0 20px rgba(168, 50, 72, 0.1),
+        0 0 60px rgba(168, 50, 72, 0.05),
         0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
@@ -705,27 +767,22 @@ body.light-mode .hero-profile-img {
         height: 160px;
     }
 
-    /* ביטול אפקט ההשתגרות במובייל */
     .floating-dock.dock-hidden {
         transform: translateX(-50%) translateY(0) !important;
         opacity: 1 !important;
         pointer-events: auto !important;
     }
 
-    /* הסתרת הדוק העליון במובייל */
     .top-dock-left {
         display: none !important;
     }
 
-    /* שמירת מרווח בפוטר */
     footer {
         padding-bottom: 8rem !important;
     }
 
-    /* הקטנת כותרות ענקיות שלא יחרגו מהמסך */
     h1.text-7xl {
         font-size: 3rem !important;
-        /* קטן יותר */
         line-height: 1.1;
     }
 
@@ -733,35 +790,46 @@ body.light-mode .hero-profile-img {
         font-size: 2.25rem !important;
     }
 
-    /* סידור הסקילס: עדיף טור אחד במובייל כדי שהטקסט לא יימעך */
     .mosaic-grid {
         display: grid;
         grid-template-columns: 1fr !important;
         gap: 1rem !important;
     }
 
-    /* איפוס המתיחות של הקוביות הגדולות */
     .glass.col-span-2,
     .glass.row-span-2 {
         grid-column: auto !important;
         grid-row: auto !important;
     }
 
-    /* סידור הפרויקטים (Spotlight): תמיד תמונה למעלה, טקסט למטה */
     .tilt-card-inner .grid {
         display: flex !important;
         flex-direction: column-reverse !important;
         gap: 1.5rem !important;
     }
 
-    /* ריווחים כלליים */
     section {
         padding-top: 4rem !important;
         padding-bottom: 4rem !important;
     }
 
-    /* Vault Grid - טור אחד לכרטיסים הקטנים */
     #vaultGrid {
         grid-template-columns: 1fr !important;
+    }
+
+    /* Hide floating emoticons on mobile */
+    .hero-character {
+        display: none;
+    }
+
+    /* Smaller section emoticons on mobile */
+    .section-emoticon {
+        width: 48px;
+        margin-left: 8px;
+    }
+
+    /* Hide project hover emoticons on mobile (no hover) */
+    .project-emoticon {
+        display: none;
     }
 }

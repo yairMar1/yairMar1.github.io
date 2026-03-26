@@ -10,6 +10,18 @@
 
     <!-- TailwindCSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyan: { 400: '#d4576e', 500: '#c24058', 600: '#a83248' },
+                        violet: { 400: '#dba87a', 500: '#d4956a', 600: '#c07a50' },
+                    }
+                }
+            }
+        }
+    </script>
 
     <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,7 +30,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -83,6 +95,10 @@
             <div class="hero-orb hero-orb--cyan"></div>
             <div class="hero-orb hero-orb--violet"></div>
             <div class="hero-orb hero-orb--green"></div>
+            <!-- Floating Character Emoticons -->
+            <img src="images/emoticons/waving.png" class="hero-character hero-character--1" alt="" loading="lazy">
+            <img src="images/emoticons/thumbs-up.png" class="hero-character hero-character--2" alt="" loading="lazy">
+            <img src="images/emoticons/thinking.png" class="hero-character hero-character--3" alt="" loading="lazy">
         </div>
 
         <div class="container mx-auto max-w-5xl text-center">
@@ -128,7 +144,7 @@
     <!-- SKILLS MOSAIC -->
     <section id="skills" class="py-24 px-6 relative z-10">
         <div class="container mx-auto max-w-7xl">
-            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16 gradient-text scroll-reveal">Technical Skills</h2>
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16 gradient-text scroll-reveal">Technical Skills<img src="images/emoticons/thinking.png" class="section-emoticon" alt="" loading="lazy"></h2>
             <div class="mosaic-grid scroll-reveal">
 
                 <!-- 1. Proficient (The Core) -->
@@ -341,9 +357,9 @@
         <div class="container mx-auto max-w-4xl scroll-reveal" data-reveal="scale">
             <div class="glass rounded-3xl p-10 relative overflow-hidden">
                 <div
-                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-violet-400 to-green-400">
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-violet-400 to-amber-400">
                 </div>
-                <h3 class="text-center text-2xl font-bold mb-8 text-main tracking-wider">HOW I APPROACH MY WORK</h3>
+                <h3 class="text-center text-2xl font-bold mb-8 text-main tracking-wider">HOW I APPROACH MY WORK<img src="images/emoticons/stern.png" class="section-emoticon" alt="" loading="lazy" style="width: 60px;"></h3>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="flex items-start gap-4">
                         <div class="p-3 rounded-full bg-cyan-500/10 text-cyan-500"><i
@@ -390,11 +406,12 @@
     <!-- TIER 1: SPOTLIGHT PROJECTS -->
     <section id="projects" class="py-24 px-6 relative z-10">
         <div class="container mx-auto max-w-7xl">
-            <h2 class="text-5xl md:text-6xl font-bold text-center mb-20 gradient-text scroll-reveal">Featured Projects
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-20 gradient-text scroll-reveal">Featured Projects<img src="images/emoticons/waving.png" class="section-emoticon" alt="" loading="lazy">
             </h2>
 
             <!-- MyVet -->
-            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="left">
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="left" style="position:relative;">
+                <img src="images/emoticons/thumbs-up-2.png" class="project-emoticon" alt="" loading="lazy">
                 <div class="tilt-card-inner">
                     <div class="grid md:grid-cols-2 gap-10 items-center">
                         <div>
@@ -431,7 +448,8 @@
             </div>
 
             <!-- AWS EC2 CPU Monitor -->
-            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="right">
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="right" style="position:relative;">
+                <img src="images/emoticons/surprised-2.png" class="project-emoticon" alt="" loading="lazy">
                 <div class="tilt-card-inner">
                     <div class="grid md:grid-cols-2 gap-10 items-center">
                         <div class="order-2 md:order-1 glass rounded-2xl p-12 text-center"><i
@@ -467,7 +485,8 @@
             </div>
 
             <!-- Settlers of Catan -->
-            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="left">
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="left" style="position:relative;">
+                <img src="images/emoticons/laughing-2.png" class="project-emoticon" alt="" loading="lazy">
                 <div class="tilt-card-inner">
                     <div class="grid md:grid-cols-2 gap-10 items-center">
                         <div>
@@ -501,7 +520,8 @@
             </div>
 
             <!-- OnMyWay -->
-            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="right">
+            <div class="tilt-card glass rounded-3xl p-10 mb-12 scroll-reveal" data-tilt data-reveal="right" style="position:relative;">
+                <img src="images/emoticons/waving-2.png" class="project-emoticon" alt="" loading="lazy">
                 <div class="tilt-card-inner">
                     <div class="grid md:grid-cols-2 gap-10 items-center">
                         <div class="order-2 md:order-1 glass rounded-2xl p-12 text-center"><i
@@ -543,7 +563,7 @@
     <!-- TIMELINE: THE TRAJECTORY -->
     <section class="py-24 px-6 relative z-10">
         <div class="container mx-auto max-w-5xl">
-            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16 gradient-text scroll-reveal">Education & Background</h2>
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16 gradient-text scroll-reveal">Education & Background<img src="images/emoticons/thumbs-up.png" class="section-emoticon" alt="" loading="lazy"></h2>
             <div class="space-y-6">
                 <!-- Deep Learning Specialization -->
                 <div class="glass rounded-2xl p-8 scroll-reveal">
@@ -631,7 +651,7 @@
     <!-- TIER 2: THE VAULT -->
     <section id="vault" class="py-32 px-6 relative z-10">
         <div class="container mx-auto max-w-7xl">
-            <h2 class="text-5xl md:text-6xl font-bold text-center mb-4 gradient-text scroll-reveal">Project Archive</h2>
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-4 gradient-text scroll-reveal">Project Archive<img src="images/emoticons/surprised.png" class="section-emoticon" alt="" loading="lazy"></h2>
             <div class="text-center max-w-2xl mx-auto mb-10 scroll-reveal">
                 <p
                     class="text-muted text-sm leading-relaxed p-4 rounded-lg">
@@ -931,13 +951,14 @@
     </section>
 
     <!-- FOOTER & CTA -->
-    <footer id="comms" class="py-20 px-6 border-t border-gray-800 relative z-10 overflow-hidden">
+    <footer id="comms" class="py-20 px-6 border-t border-[#2a1a1e] relative z-10 overflow-hidden">
         <!-- Background Glow Effect for Footer -->
         <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-cyan-400/5 blur-[140px] w-[420px] h-[240px] rounded-full pointer-events-none">
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#c24058]/5 blur-[140px] w-[420px] h-[240px] rounded-full pointer-events-none">
         </div>
 
         <div class="container mx-auto max-w-4xl text-center relative z-10">
+            <img src="images/emoticons/laughing.png" class="section-emoticon mb-4 mx-auto" alt="" loading="lazy" style="width: 90px; display: block;">
             <h2 class="text-4xl md:text-5xl font-bold mb-6 text-main">Interested in working together?</h2>
             <p class="text-xl text-muted mb-10 font-light max-w-2xl mx-auto">
                 Whether you have a role to discuss or just want to connect, I'd love to hear from you.
@@ -945,7 +966,7 @@
 
             <!-- Big CTA Button -->
             <a href="mailto:yairmargalit.dev@gmail.com"
-                class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-600 to-violet-600 hover:from-cyan-500 hover:to-violet-500 text-white rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25">
+                class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-600 to-violet-600 hover:from-cyan-500 hover:to-violet-500 text-white rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-[#c24058]/25">
                 <i class="fas fa-paper-plane"></i>
                 <span>Start a Conversation</span>
             </a>
@@ -955,11 +976,11 @@
                 <a href="https://github.com/yairMar1" target="_blank"
                     class="text-muted hover:text-white transition-colors text-3xl"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/yair-margalit-089164337/" target="_blank"
-                    class="text-muted hover:text-cyan-400 transition-colors text-3xl"><i
+                    class="text-muted hover:text-[#c24058] transition-colors text-3xl"><i
                         class="fab fa-linkedin"></i></a>
             </div>
 
-            <div class="mt-16 border-t border-gray-800/50 pt-8 text-sm text-muted font-mono opacity-60">
+            <div class="mt-16 border-t border-[#2a1a1e]/50 pt-8 text-sm text-muted font-mono opacity-60">
                 <p>&copy; 2026 Yair Margalit. Built from scratch.</p>
             </div>
         </div>

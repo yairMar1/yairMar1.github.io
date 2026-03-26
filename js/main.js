@@ -186,3 +186,15 @@ dock.addEventListener('mouseleave', () => {
         icon.style.transform = 'scale(1) translateY(0)';
     });
 });
+
+// ===== HERO CHARACTER PARALLAX =====
+const heroCharacters = document.querySelectorAll('.hero-character');
+if (heroCharacters.length > 0 && window.innerWidth > 768) {
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        heroCharacters.forEach((char, i) => {
+            const speed = 0.03 + (i * 0.015);
+            char.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+    }, { passive: true });
+}
